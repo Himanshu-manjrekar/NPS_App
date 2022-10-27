@@ -1,0 +1,215 @@
+onFieldSubmitted: (newvalue) async {
+                              Navigator.of(context).push(FullScreenModal());
+                              tempId = uniqueIdcontroller.text;
+                              uniqueId = tempId;
+                              var encrep = await _fetchNames.fetchName(
+                                uniqueId,
+                                context,
+                              );
+                              Name = await _decryptName.decryptName(
+                                  encrep!, context);
+                              setState(() => fetchednamed = Name!);
+                              if (Name!.contains('PAN is invalid') ||
+                                  Name!.contains('ARN is Invalid')) {
+                                await AlertDialogs.yesCanceldialog(context,
+                                    'Please Enter Valid PAN / ARN Details.');
+                                uniqueIdcontroller.clear();
+                                commentController.clear();
+                                setState(() {
+                                  uniqueId = '';
+                                  Name = '';
+                                  _groupRate = '';
+                                  _rate = 0;
+                                  comment = '';
+                                });
+                              }
+                              if (Name!.contains('Technical Error.')) {
+                                await AlertDialogs.yesCanceldialog(context,
+                                    'Technical Error. Please contact your Admin!');
+                                uniqueIdcontroller.clear();
+                                commentController.clear();
+                                setState(() {
+                                  uniqueId = '';
+                                  Name = '';
+                                  _groupRate = '';
+                                  _rate = 0;
+                                  comment = '';
+                                });
+                              }
+                              if (Name!.contains('PAN is Empty')) {
+                                await AlertDialogs.yesCanceldialog(
+                                    context, 'Please Enter PAN.');
+                                uniqueIdcontroller.clear();
+                                commentController.clear();
+                                setState(() {
+                                  uniqueId = '';
+                                  Name = '';
+                                  _groupRate = '';
+                                  _rate = 0;
+                                  comment = '';
+                                });
+                              }
+                              if (Name!.contains(
+                                  'No folio associated to this PAN')) {
+                                await AlertDialogs.yesCanceldialog(
+                                    context, Name!);
+                                uniqueIdcontroller.clear();
+                                commentController.clear();
+                                setState(() {
+                                  uniqueId = '';
+                                  Name = '';
+                                  _rate = 0;
+                                  comment = '';
+                                  _groupRate = '';
+                                });
+                              }
+                              if (Name!.contains(
+                                  'ARN Not Empaneled with PGIM India.')) {
+                                await AlertDialogs.yesCanceldialog(
+                                    context, Name!);
+                                uniqueIdcontroller.clear();
+                                commentController.clear();
+                                setState(() {
+                                  uniqueId = '';
+                                  Name = '';
+                                  _rate = 0;
+                                  comment = '';
+                                  _groupRate = '';
+                                });
+                              }
+                            }
+
+
+
+
+
+onEditingcomplete :-   means as soon as editing is cmplete in textfield  
+onFieldSubmitted :-
+onchanged :- means as soon as somethng is changed in textfield
+
+
+
+
+
+Row(
+                      children: <Widget>[
+                        const Text(
+                          'PAN',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Color(0xff002247),
+                            fontFamily: 'Arial Narrow',
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 62,
+                        ),
+                        Expanded(
+                          child: SizedBox(
+                            height: 40,
+                            child: TextFormField(
+                              style: const TextStyle(
+                                color: Color(0xff002247),
+                                fontFamily: 'Arial Narrow',
+                              ),
+                              controller: uniqueIdcontroller,
+                              keyboardType: TextInputType.multiline,
+                              textInputAction: TextInputAction.done,
+                              textCapitalization: TextCapitalization.characters,
+                              onFieldSubmitted: (newvalue) async {
+                                Navigator.of(context).push(FullScreenModal());
+                                tempId = uniqueIdcontroller.text;
+                                uniqueId = tempId;
+                                var encrep = await _fetchNames.fetchName(
+                                  uniqueId,
+                                  context,
+                                );
+                                Name = await _decryptName.decryptName(
+                                    encrep!, context);
+                                setState(() => fetchednamed = Name!);
+                                if (Name!.contains('PAN is invalid') ||
+                                    Name!.contains('ARN is Invalid')) {
+                                  await AlertDialogs.yesCanceldialog(context,
+                                      'Please Enter Valid PAN / ARN Details.');
+                                  uniqueIdcontroller.clear();
+                                  commentController.clear();
+                                  setState(() {
+                                    uniqueId = '';
+                                    Name = '';
+                                    _groupRate = '';
+                                    _rate = 0;
+                                    comment = '';
+                                  });
+                                }
+                                if (Name!.contains('Technical Error.')) {
+                                  await AlertDialogs.yesCanceldialog(context,
+                                      'Technical Error. Please contact your Admin!');
+                                  uniqueIdcontroller.clear();
+                                  commentController.clear();
+                                  setState(() {
+                                    uniqueId = '';
+                                    Name = '';
+                                    _groupRate = '';
+                                    _rate = 0;
+                                    comment = '';
+                                  });
+                                }
+                                if (Name!.contains('PAN is Empty')) {
+                                  await AlertDialogs.yesCanceldialog(
+                                      context, 'Please Enter PAN.');
+                                  uniqueIdcontroller.clear();
+                                  commentController.clear();
+                                  setState(() {
+                                    uniqueId = '';
+                                    Name = '';
+                                    _groupRate = '';
+                                    _rate = 0;
+                                    comment = '';
+                                  });
+                                }
+                                if (Name!.contains(
+                                    'No folio associated to this PAN')) {
+                                  await AlertDialogs.yesCanceldialog(
+                                      context, Name!);
+                                  uniqueIdcontroller.clear();
+                                  commentController.clear();
+                                  setState(() {
+                                    uniqueId = '';
+                                    Name = '';
+                                    _rate = 0;
+                                    comment = '';
+                                    _groupRate = '';
+                                  });
+                                }
+                                if (Name!.contains(
+                                    'ARN Not Empaneled with PGIM India.')) {
+                                  await AlertDialogs.yesCanceldialog(
+                                      context, Name!);
+                                  uniqueIdcontroller.clear();
+                                  commentController.clear();
+                                  setState(() {
+                                    uniqueId = '';
+                                    Name = '';
+                                    _rate = 0;
+                                    comment = '';
+                                    _groupRate = '';
+                                  });
+                                }
+                              },
+                              decoration: const InputDecoration(
+                                contentPadding:
+                                    EdgeInsets.fromLTRB(15.0, 10.0, 5.0, 10.0),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Color(0xffd7d9da)),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Color(0xffd7d9da)),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
