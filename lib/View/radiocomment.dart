@@ -452,7 +452,7 @@ class _RadioCommentState<T> extends State<RadioComment<T>> {
                   ),
                   controller: commentController,
                   keyboardType: TextInputType.multiline,
-                  textInputAction: TextInputAction.newline,
+                  textInputAction: TextInputAction.done,
                   // maxLengthEnforcement:true,
                   maxLength: 1000,
                   maxLines: 4,
@@ -466,67 +466,64 @@ class _RadioCommentState<T> extends State<RadioComment<T>> {
                     ),
                   ),
                 ),
-              ],
-            ),
-          ),
-        ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(left: 110, right: 110, bottom: 15),
-        child: Material(
-          color: const Color(0xffE3B449),
-          borderRadius: const BorderRadius.all(Radius.circular(30)),
-          child: InkWell(
-            onTap: () async {
-              // (Start) Save the Feedback
-              const source = 'Other_Application';
-              comment = commentController.text;
-              String? uniqueId = widget.ExtractedUniqueId;
+                const SizedBox(
+                  height: 40,
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xffE3B449),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 60, vertical: 20),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                      )),
+                  onPressed: () async {
+                    const source = 'Other_Application';
+                    comment = commentController.text;
+                    String? uniqueId = widget.ExtractedUniqueId;
 
-              int temp_rating = _rate!;
-              if (temp_rating < 0) {
-                await FeedbackAlerts.yesCanceldialog(
-                    context, 'Please give rating.');
-              } else if (comment.isEmpty) {
-                await FeedbackAlerts.yesCanceldialog(
-                    context, 'Please write few suggestions.');
-              } else {
-                Navigator.of(context).push(FullScreenModal());
-                var savedfeedback = await _saveFeedback.saveFeedback(
-                    widget.ExtractedUniqueId,
-                    _rate,
-                    comment,
-                    source,
-                    context,
-                    'https://investors-stage.pgimindiamf.com/api/v1/general/customer/feedback');
-                feedback = await _decryptfeedback.DecryptFeedback(
-                    savedfeedback, context);
-                print(widget.ExtractedUniqueId);
-                print(_rate);
-                print(comment);
-                // setState(() => comment = '');
-                // setState(() => tempId = '');
-                // setState(() => fetchednamed = '');
-                // setState(() => feedback = '');
-                // setState(() => _rate = 0);
-                // setState(() => _groupRate = '');
-                // commentController.clear();
-                Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false);
-              }
-            },
-            child: const SizedBox(
-              height: kToolbarHeight,
-              width: double.infinity,
-              child: Center(
-                child: Text(
-                  'SUBMIT',
-                  style: TextStyle(
-                    fontFamily: 'Arial Narrow',
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xff002247),
+                    int temp_rating = _rate!;
+                    if (temp_rating < 0) {
+                      await FeedbackAlerts.yesCanceldialog(
+                          context, 'Please give rating.');
+                    } else if (comment.isEmpty) {
+                      await FeedbackAlerts.yesCanceldialog(
+                          context, 'Please write few suggestions.');
+                    } else {
+                      Navigator.of(context).push(FullScreenModal());
+                      var savedfeedback = await _saveFeedback.saveFeedback(
+                          widget.ExtractedUniqueId,
+                          _rate,
+                          comment,
+                          source,
+                          context,
+                          'https://investors-stage.pgimindiamf.com/api/v1/general/customer/feedback');
+                      feedback = await _decryptfeedback.DecryptFeedback(
+                          savedfeedback, context);
+                      print(widget.ExtractedUniqueId);
+                      print(_rate);
+                      print(comment);
+                      // setState(() => comment = '');
+                      // setState(() => tempId = '');
+                      // setState(() => fetchednamed = '');
+                      // setState(() => feedback = '');
+                      // setState(() => _rate = 0);
+                      // setState(() => _groupRate = '');
+                      // commentController.clear();
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, '/', (_) => false);
+                    }
+                  },
+                  child: const Text(
+                    'SUBMIT',
+                    style: TextStyle(
+                      fontFamily: 'Arial Narrow',
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff002247),
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
           ),
         ),

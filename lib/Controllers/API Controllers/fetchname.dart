@@ -48,6 +48,7 @@ class FetchNames {
       await AlertDialogs.yesCanceldialog(
           context, 'Please check your internet connection and try again.');
     } on Exception catch (e) {
+      print(e);
       Navigator.of(context).pop();
       await AlertDialogs.yesCanceldialog(
           context, 'Technical Error. Please contact your Admin!');

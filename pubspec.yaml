@@ -39,6 +39,7 @@ dependencies:
   http: ^0.13.5
   sizer: ^2.0.15
   flutter_svg: ^1.1.5
+  flutter_phoenix: ^1.1.0
 
 dev_dependencies:
   flutter_test:

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:nps_app/View/radiocomment.dart';
-
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'View/intro.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 void main() {
-  runApp(const MyApp());
+  runApp(
+    Phoenix(child: const MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {

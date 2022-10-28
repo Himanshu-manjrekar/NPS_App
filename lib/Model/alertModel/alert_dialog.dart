@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 enum DialogsAction { yes, cancel }
 
@@ -23,7 +24,8 @@ class AlertDialogs {
                 onPressed: () =>
                     //
                     // Navigator.of(dailogctx).pop(DialogsAction.yes),
-                    Navigator.pushNamed(dailogctx, '/intro'),
+                    // Navigator.pushNamed(dailogctx, '/intro'),
+                    Phoenix.rebirth(context),
                 // Navigator.pop(dailogctx),
                 child: const Text(
                   'Ok',

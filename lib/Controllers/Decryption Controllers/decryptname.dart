@@ -27,6 +27,7 @@ class DecryptName {
             await jsonDecode(jsonEncode(decryptedResponse["data"]["name"]));
       }
     } on Exception catch (e) {
+      print(e);
       await AlertDialogs.yesCanceldialog(
           context, 'Technical error. Please contact your Admin!');
     } on RangeError catch (e) {

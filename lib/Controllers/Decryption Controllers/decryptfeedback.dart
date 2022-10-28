@@ -1,8 +1,10 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:convert';
+import 'dart:io';
 import 'package:encrypt/encrypt.dart' as encrypt1;
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:nps_app/Controllers/Encryption Controllers/randomkeygenerator.dart';
 import '../../Model/alertModel/alert_dialog.dart';
 
@@ -19,10 +21,12 @@ class Decryptfeedback {
       final decryptStatus =
           jsonDecode(jsonEncode(decryptedResult['resultInfo']['resultStatus']));
       if (decryptStatus == 0) {
-        await AlertDialogs.yesCanceldialog(context,
+        await AlertDialogs.yesCanceldialog(
+            context, // Here app should restart make a Restar alert for this
             jsonDecode(jsonEncode(decryptedResult['resultInfo']['resultMsg'])));
       } else {
-        await AlertDialogs.yesCanceldialog(context,
+        await AlertDialogs.yesCanceldialog(
+            context, // Here app should restart make a Restar alert for this
             jsonDecode(jsonEncode(decryptedResult['resultInfo']['resultMsg'])));
       }
     } on Exception catch (e) {
