@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class Radiorating<T> extends StatelessWidget {
   // ignore: prefer_typing_uninitialized_variables
@@ -43,9 +44,9 @@ class Radiorating<T> extends StatelessWidget {
             height: 8,
           ),
           Container(
-            width: currentWidth < 1024
-                ? 30.8
-                : 48, // Resize this for responsive behaviour
+            width: currentWidth > 1024
+                ? 8.6.w
+                : 8.w, // Resize this for responsive behaviour
             height: 22, // this is the size of the btn
             decoration: ShapeDecoration(
               shape: CircleBorder(

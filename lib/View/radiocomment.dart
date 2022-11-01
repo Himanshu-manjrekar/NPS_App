@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:nps_app/Controllers/API%20Controllers/fetchname.dart';
 import 'package:nps_app/Controllers/Decryption%20Controllers/decryptname.dart';
+import 'package:sizer/sizer.dart';
 import '../../Model/reviewsModel/badreview.dart';
 import '../../Model/reviewsModel/defaultreview.dart';
 import '../../Model/reviewsModel/greatreview.dart';
@@ -59,6 +60,7 @@ class _RadioCommentState<T> extends State<RadioComment<T>> {
 
   @override
   Widget build(BuildContext context) {
+    final currentWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
@@ -93,22 +95,27 @@ class _RadioCommentState<T> extends State<RadioComment<T>> {
                         alignment: Alignment.centerLeft,
                         child: SvgPicture.asset(
                           "assets/Logo/PGIM_Logo.svg",
-                          height: 44, // Resize (Responsive)
-                          width: 30, // Resize (Responsive)
+                          height: currentWidth < 1024
+                              ? 45
+                              : 9.h, // Resize (Responsive)
+                          width: currentWidth < 1024
+                              ? 30
+                              : 7.w, // Resize (Responsive)
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 50,
+                    SizedBox(
+                      height: currentWidth < 1024 ? 50 : 70,
                     ),
                     Row(
                       children: <Widget>[
-                        const Text(
+                        Text(
                           // '${widget.ExtractedUniqueId}',
-                          'Name',
+                          currentWidth.toString(),
+                          // 'Name',
                           style: TextStyle(
-                            fontSize: 16,
-                            color: Color(0xff002247),
+                            fontSize: currentWidth < 1024 ? 16 : 6.sp,
+                            color: const Color(0xff002247),
                             fontFamily: 'Arial Narrow',
                           ),
                         ),
@@ -130,7 +137,7 @@ class _RadioCommentState<T> extends State<RadioComment<T>> {
                               hintText: '${widget.ExtractedName}',
                               hintStyle: TextStyle(
                                   fontFamily: 'Arial Narrow',
-                                  fontSize: 15,
+                                  fontSize: currentWidth < 1024 ? 16 : 6.sp,
                                   color: Name!.contains('PAN is invalid') ||
                                           Name!.contains('ARN is Invalid')
                                       ? Colors.red
@@ -151,13 +158,13 @@ class _RadioCommentState<T> extends State<RadioComment<T>> {
                     const SizedBox(
                       height: 50,
                     ),
-                    const Align(
+                    Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "Can we have your feedback on your experience?",
                         style: TextStyle(
-                          fontSize: 18,
-                          color: Color(0xff002247),
+                          fontSize: 8.sp, // Resize Accordingly
+                          color: const Color(0xff002247),
                           fontFamily: 'Arial Narrow',
                         ),
                       ),
@@ -166,7 +173,6 @@ class _RadioCommentState<T> extends State<RadioComment<T>> {
                       height: 30,
                     ),
                     Container(
-                      width: double.infinity,
                       decoration: BoxDecoration(
                         border: Border.all(
                           color: const Color(0xffd7d9da),
@@ -176,8 +182,7 @@ class _RadioCommentState<T> extends State<RadioComment<T>> {
                       padding: const EdgeInsets.symmetric(
                           vertical: 15,
                           horizontal:
-                              3.2), // change this padding accordingly to resize the app in ipad
-                      alignment: Alignment.center,
+                              2), // change this padding accordingly to resize the app in ipad
                       child: Column(
                         children: [
                           Row(
@@ -188,7 +193,7 @@ class _RadioCommentState<T> extends State<RadioComment<T>> {
                                 onChanged: _valueChangedHandler(),
                                 label: '0',
                                 border: false,
-                                bgcolor: const Color(0xffe04c32),
+                                bgcolor: const Color(0xffff0000),
                                 callbackFunction: callback,
                               ),
                               Radiorating<String>(
@@ -197,7 +202,7 @@ class _RadioCommentState<T> extends State<RadioComment<T>> {
                                 onChanged: _valueChangedHandler(),
                                 label: '1',
                                 border: false,
-                                bgcolor: const Color(0xffe04c32),
+                                bgcolor: const Color(0xffff0000),
                                 callbackFunction: callback,
                               ),
                               Radiorating<String>(
@@ -206,7 +211,7 @@ class _RadioCommentState<T> extends State<RadioComment<T>> {
                                 onChanged: _valueChangedHandler(),
                                 label: '2',
                                 border: false,
-                                bgcolor: const Color(0xffe04c32),
+                                bgcolor: const Color(0xffff0000),
                                 callbackFunction: callback,
                               ),
                               Radiorating<String>(
