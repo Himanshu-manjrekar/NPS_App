@@ -1,23 +1,17 @@
-// ignore: duplicate_ignore
-// ignore: file_names
-// ignore_for_file: file_names
-
 import 'dart:math';
+import '../../config.properties' as config;
 
 class KeyGenerator {
-  // ignore: non_constant_identifier_names
-  String RandomKey() {
+  String randomKey() {
     const characters =
         'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-    int length = 16;
     Random random = Random();
-    final key = String.fromCharCodes(Iterable.generate(length,
+    final key = String.fromCharCodes(Iterable.generate(config.randomKeyLength,
         (_) => characters.codeUnitAt(random.nextInt(characters.length))));
-    // print('Secret Key:- ${key}');
     return key;
   }
 
-  late String digitKey = RandomKey();
+  late String digitKey = randomKey();
 }
 
 var key = KeyGenerator();

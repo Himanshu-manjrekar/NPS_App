@@ -3,7 +3,7 @@ import 'package:encrypt/encrypt.dart' as encrypt1;
 import 'package:flutter/cupertino.dart';
 import 'package:nps_app/Controllers/Encryption Controllers/randomkeygenerator.dart';
 import '../../Model/alertModel/alert_dialog.dart';
-import '../API Controllers/config.properties' as config;
+import '../../config.properties' as config;
 
 class DecryptName {
   late String decryptedname = '';
@@ -27,11 +27,10 @@ class DecryptName {
         decryptedname =
             await jsonDecode(jsonEncode(decryptedResponse["data"]["name"]));
       }
-    } on Exception catch (e) {
-      print(e);
+    } on Exception catch (_) {
       await AlertDialogs.yesCanceldialog(
           context, 'Technical error. Please contact your Admin!');
-    } on RangeError catch (e) {
+    } on RangeError catch (_) {
       Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false);
     }
     return decryptedname;

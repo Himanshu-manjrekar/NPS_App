@@ -1,5 +1,5 @@
 // ignore_for_file: non_constant_identifier_names, duplicate_ignore
-import '../API Controllers/config.properties' as config;
+import '../../config.properties' as config;
 import 'package:encrypt/encrypt.dart' as encrypt1;
 import 'package:flutter/services.dart';
 import 'package:nps_app/Controllers/Encryption Controllers/randomkeygenerator.dart';
@@ -18,8 +18,6 @@ class EncryptRequest {
       publicKey: publicKey,
     ));
     final encryptedRandomKey = encrypter.encrypt(plainText);
-    // print(
-    //     'Encrypted Key :- ${encryptedRandomKey.base64}'); // Encrypt Random 16 Digit Key Here
     return encryptedRandomKey.base64; // Return it
   }
 

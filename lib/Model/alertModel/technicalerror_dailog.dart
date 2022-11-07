@@ -1,3 +1,4 @@
+// ignore_for_file: unused_local_variable
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 
@@ -10,7 +11,6 @@ class TechnicalAlertDialogs {
   ) async {
     final action = await showDialog(
         context: context,
-        // barrierDismissible: false,
         builder: (BuildContext dailogctx) {
           return AlertDialog(
             content: Text(
@@ -33,5 +33,6 @@ class TechnicalAlertDialogs {
             ],
           );
         });
+    return null;
   }
 }

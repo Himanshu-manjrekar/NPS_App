@@ -1,26 +1,23 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
-import 'package:nps_app/Controllers/API%20Controllers/fetchname.dart';
-import 'package:nps_app/Controllers/Decryption%20Controllers/decryptname.dart';
 import 'package:sizer/sizer.dart';
 import '../../Model/reviewsModel/badreview.dart';
 import '../../Model/reviewsModel/defaultreview.dart';
 import '../../Model/reviewsModel/greatreview.dart';
 import '../../Model/reviewsModel/positivereview.dart';
 import '../../Controllers/API Controllers/savefeedback.dart';
-import '../Model/alertModel/alert_dialog.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../Model/alertModel/feedback_alert.dart';
-import 'FullScreenModal.dart';
+import 'fullscreenmodal.dart';
 import 'radio_rating.dart';
 import 'package:nps_app/Controllers/Decryption Controllers/decryptfeedback.dart';
 
 class RadioComment<T> extends StatefulWidget {
   const RadioComment(
-      {Key? key, required this.ExtractedName, required this.ExtractedUniqueId})
+      {Key? key, required this.extractedName, required this.extractedUniqueId})
       : super(key: key);
-  final String? ExtractedName;
-  final String ExtractedUniqueId;
+  final String? extractedName;
+  final String extractedUniqueId;
 
   @override
   State<RadioComment<T>> createState() => _RadioCommentState<T>();
@@ -44,8 +41,6 @@ class _RadioCommentState<T> extends State<RadioComment<T>> {
 
   final commentController = TextEditingController();
   final uniqueIdcontroller = TextEditingController();
-  final FetchNames _fetchNames = FetchNames();
-  final DecryptName _decryptName = DecryptName(); // Api request Class
   final SaveFeedback _saveFeedback = SaveFeedback();
   final Decryptfeedback _decryptfeedback = Decryptfeedback();
   String uniqueId = '';
@@ -53,14 +48,12 @@ class _RadioCommentState<T> extends State<RadioComment<T>> {
   String tempId = '';
   String fetchednamed = '';
   late String? feedback = '';
-  late String? Name = '';
-  // dynamic _showModal(BuildContext context) async {
-  //   final result = await Navigator.of(context).push(FullScreenModal());
-  // }
+  late String? name = '';
 
   @override
   Widget build(BuildContext context) {
     final currentWidth = MediaQuery.of(context).size.width;
+    const source = 'Other_Application';
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
@@ -77,7 +70,6 @@ class _RadioCommentState<T> extends State<RadioComment<T>> {
       body: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: SingleChildScrollView(
-          physics: ClampingScrollPhysics(),
           child: Container(
             width: double.infinity,
             height: MediaQuery.of(context).size.height,
@@ -110,8 +102,6 @@ class _RadioCommentState<T> extends State<RadioComment<T>> {
                     Row(
                       children: <Widget>[
                         Text(
-                          // '${widget.ExtractedUniqueId}',
-                          // currentWidth.toString(),
                           'Name',
                           style: TextStyle(
                             fontSize: currentWidth < 1024 ? 16 : 6.sp,
@@ -126,7 +116,6 @@ class _RadioCommentState<T> extends State<RadioComment<T>> {
                             child: SizedBox(
                           height: 40,
                           child: TextFormField(
-                            // enabled: false,
                             readOnly: true,
                             keyboardType: TextInputType.multiline,
                             textInputAction: TextInputAction.done,
@@ -134,14 +123,11 @@ class _RadioCommentState<T> extends State<RadioComment<T>> {
                             decoration: InputDecoration(
                               contentPadding: const EdgeInsets.fromLTRB(
                                   15.0, 10.0, 5.0, 10.0),
-                              hintText: '${widget.ExtractedName}',
+                              hintText: '${widget.extractedName}',
                               hintStyle: TextStyle(
                                   fontFamily: 'Arial Narrow',
                                   fontSize: currentWidth < 1024 ? 16 : 6.sp,
-                                  color: Name!.contains('PAN is invalid') ||
-                                          Name!.contains('ARN is Invalid')
-                                      ? Colors.red
-                                      : const Color(0xff002247)),
+                                  color: const Color(0xff002247)),
                               focusedBorder: const OutlineInputBorder(
                                 borderSide:
                                     BorderSide(color: Color(0xffd7d9da)),
@@ -477,7 +463,6 @@ class _RadioCommentState<T> extends State<RadioComment<T>> {
                   controller: commentController,
                   keyboardType: TextInputType.multiline,
                   textInputAction: TextInputAction.done,
-                  // maxLengthEnforcement:true,
                   maxLength: 1000,
                   maxLines: 4,
                   decoration: const InputDecoration(
@@ -502,38 +487,25 @@ class _RadioCommentState<T> extends State<RadioComment<T>> {
                         borderRadius: BorderRadius.all(Radius.circular(30)),
                       )),
                   onPressed: () async {
-                    const source = 'Other_Application';
-                    comment = commentController.text;
-                    String? uniqueId = widget.ExtractedUniqueId;
-
-                    int temp_rating = _rate!;
-                    if (temp_rating < 0) {
+                    commentController.text;
+                    _rate!;
+                    if (_rate! < 0) {
                       await FeedbackAlerts.yesCanceldialog(context,
                           'Can we have your feedback on your experience?');
-                    } else if (comment.isEmpty) {
+                    } else if (commentController.text.isEmpty) {
                       await FeedbackAlerts.yesCanceldialog(
                           context, 'Please enter suggestion.');
                     } else {
-                      Navigator.of(context).push(FullScreenModal());
+                      Navigator.of(context).push(Fullscreenmodal());
                       var savedfeedback = await _saveFeedback.saveFeedback(
-                        widget.ExtractedUniqueId,
+                        widget.extractedUniqueId,
                         _rate,
-                        comment,
+                        commentController.text,
                         source,
                         context,
                       );
                       feedback = await _decryptfeedback.DecryptFeedback(
                           savedfeedback, context);
-                      // print(widget.ExtractedUniqueId);
-                      // print(_rate);
-                      // print(comment);
-                      // setState(() => comment = '');
-                      // setState(() => tempId = '');
-                      // setState(() => fetchednamed = '');
-                      // setState(() => feedback = '');
-                      // setState(() => _rate = 0);
-                      // setState(() => _groupRate = '');
-                      // commentController.clear();
                       Navigator.pushNamedAndRemoveUntil(
                           context, '/', (_) => false);
                     }

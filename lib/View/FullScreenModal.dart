@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nps_app/View/custom_animation.dart';
 
-class FullScreenModal extends ModalRoute {
+class Fullscreenmodal extends ModalRoute {
   @override
   Duration get transitionDuration => const Duration(milliseconds: 500);
 
@@ -26,7 +26,7 @@ class FullScreenModal extends ModalRoute {
     Animation<double> animation,
     Animation<double> secondaryAnimation,
   ) {
-    return Material(
+    return const Material(
       type: MaterialType.transparency,
       child: Center(
         child: CustomAnimation(),

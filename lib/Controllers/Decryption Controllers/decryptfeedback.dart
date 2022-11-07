@@ -5,7 +5,7 @@ import 'package:encrypt/encrypt.dart' as encrypt1;
 import 'package:flutter/cupertino.dart';
 import 'package:nps_app/Controllers/Encryption Controllers/randomkeygenerator.dart';
 import '../../Model/alertModel/alert_dialog.dart';
-import '../API Controllers/config.properties' as config;
+import '../../config.properties' as config;
 
 class Decryptfeedback {
   DecryptFeedback(String req, BuildContext context) async {
@@ -20,18 +20,15 @@ class Decryptfeedback {
       final decryptStatus =
           jsonDecode(jsonEncode(decryptedResult['resultInfo']['resultStatus']));
       if (decryptStatus == 0) {
-        await AlertDialogs.yesCanceldialog(
-            context, // Here app should restart make a Restar alert for this
+        await AlertDialogs.yesCanceldialog(context,
             jsonDecode(jsonEncode(decryptedResult['resultInfo']['resultMsg'])));
       } else {
-        await AlertDialogs.yesCanceldialog(
-            context, // Here app should restart make a Restar alert for this
+        await AlertDialogs.yesCanceldialog(context,
             jsonDecode(jsonEncode(decryptedResult['resultInfo']['resultMsg'])));
       }
-    } on Exception catch (e) {
+    } on Exception catch (_) {
       await AlertDialogs.yesCanceldialog(
           context, 'Technical error. Please contact your Admin!');
-      print('Exception raised while decryption');
     }
   }
 }

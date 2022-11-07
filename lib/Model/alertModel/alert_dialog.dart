@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 enum DialogsAction { yes, cancel }
 
@@ -8,9 +7,9 @@ class AlertDialogs {
     BuildContext context,
     String body,
   ) async {
+    // ignore: unused_local_variable
     final action = await showDialog(
         context: context,
-        // barrierDismissible: false,
         builder: (BuildContext dailogctx) {
           return AlertDialog(
             content: Text(
@@ -33,5 +32,6 @@ class AlertDialogs {
             ],
           );
         });
+    return null;
   }
 }

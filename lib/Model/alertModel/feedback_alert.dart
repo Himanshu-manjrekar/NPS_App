@@ -7,9 +7,9 @@ class FeedbackAlerts {
     BuildContext context,
     String body,
   ) async {
+    // ignore: unused_local_variable
     final action = await showDialog(
         context: context,
-        // barrierDismissible: false,
         builder: (BuildContext feedbckalertctx) {
           return AlertDialog(
             content: Text(
@@ -33,5 +33,6 @@ class FeedbackAlerts {
             ],
           );
         });
+    return null;
   }
 }

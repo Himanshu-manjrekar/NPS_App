@@ -7,7 +7,6 @@ class CommentBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(right: 20),
-      // color: Colors.red,
       height: 200,
       child: TextFormField(
         keyboardType: TextInputType.multiline,

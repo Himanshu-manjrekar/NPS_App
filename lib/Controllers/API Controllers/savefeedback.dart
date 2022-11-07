@@ -7,9 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
 import 'package:nps_app/Model/alertModel/feedback_alert.dart';
 import 'package:nps_app/Model/alertModel/technicalerror_dailog.dart';
-import '../../Model/alertModel/alert_dialog.dart';
 import 'package:nps_app/Controllers/Encryption Controllers/encryptrequest.dart';
-import '../API Controllers/config.properties' as config;
+import '../../config.properties' as config;
 
 class SaveFeedback {
   late int status = 0;
@@ -52,11 +51,11 @@ class SaveFeedback {
         await TechnicalAlertDialogs.yesCanceldialog(
             context, 'Technical Error. Please contact your Admin!');
       }
-    } on SocketException catch (e) {
+    } on SocketException catch (_) {
       await FeedbackAlerts.yesCanceldialog(
           context, 'Please check your internet connection and try again.');
       Navigator.of(context).pop();
-    } on Exception catch (e) {
+    } on Exception catch (_) {
       await TechnicalAlertDialogs.yesCanceldialog(
           context, 'Technical Error. Please contact your Admin!');
       Navigator.of(context).pop();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomAnimation extends StatefulWidget {
-  CustomAnimation({Key? key}) : super(key: key);
+  const CustomAnimation({Key? key}) : super(key: key);
 
   @override
   State<CustomAnimation> createState() => _CustomAnimationState();

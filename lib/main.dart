@@ -22,10 +22,9 @@ class MyApp extends StatelessWidget {
           highlightColor: Colors.transparent,
           hoverColor: Colors.transparent,
         ),
-        title: 'NPS_UAT',
-        home: IntroPage(),
+        title: 'NPS',
+        home: const IntroPage(),
         debugShowCheckedModeBanner: false,
-        routes: {'/intro': (context) => IntroPage()},
       );
     });
   }
