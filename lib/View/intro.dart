@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nps_app/Model/alertModel/feedback_alert.dart';
 import 'package:nps_app/View/radiocomment.dart';
@@ -30,6 +31,9 @@ class _IntroPageState extends State<IntroPage> {
   Widget build(BuildContext context) {
     final currentWidth = MediaQuery.of(context).size.width;
     final currentHeight = MediaQuery.of(context).size.height;
+    RegExp regExp = RegExp(
+      r"[A-Z]{5}[0-9]{4}[A-Z]{1}",
+    );
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -52,7 +56,7 @@ class _IntroPageState extends State<IntroPage> {
             height: MediaQuery.of(context).size.height,
             padding: const EdgeInsets.only(top: 5, left: 20, right: 20),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              // mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Column(
                   children: <Widget>[
@@ -74,118 +78,120 @@ class _IntroPageState extends State<IntroPage> {
                       ),
                     ),
                     SizedBox(
-                      height: currentWidth < 1024 ? 150 : 26.h,
+                      height: currentWidth < 1024 ? 200 : 26.h,
                     ),
-                    Row(
-                      children: <Widget>[
-                        Text(
-                          currentWidth.toString(),
-                          // 'PAN',
-                          style: TextStyle(
-                            fontSize: currentWidth < 1024 ? 16 : 6.sp,
-                            color: const Color(0xff002247),
-                            fontFamily: 'Arial Narrow',
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 62,
-                        ),
-                        SizedBox(
-                          width: currentWidth - 180,
-                          child: TextFormField(
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            // currentWidth.toString(),
+                            'PAN_UAT',
                             style: TextStyle(
                               fontSize: currentWidth < 1024 ? 16 : 6.sp,
                               color: const Color(0xff002247),
                               fontFamily: 'Arial Narrow',
                             ),
-                            controller: uniqueIdcontroller,
-                            keyboardType: TextInputType.multiline,
-                            textInputAction: TextInputAction.done,
-                            textCapitalization: TextCapitalization.characters,
-                            decoration: const InputDecoration(
-                              contentPadding:
-                                  EdgeInsets.fromLTRB(15.0, 10.0, 5.0, 10.0),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Color(0xffd7d9da)),
+                          ),
+                          const SizedBox(
+                            width: 62,
+                          ),
+                          SizedBox(
+                            width: 60.w,
+                            child: TextFormField(
+                              style: TextStyle(
+                                fontSize: currentWidth < 1024 ? 16 : 6.sp,
+                                color: const Color(0xff002247),
+                                fontFamily: 'Arial Narrow',
                               ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Color(0xffd7d9da)),
+                              controller: uniqueIdcontroller,
+                              textInputAction: TextInputAction.done,
+                              textCapitalization: TextCapitalization.characters,
+                              maxLength: 10,
+                              decoration: const InputDecoration(
+                                counterText: "",
+                                contentPadding:
+                                    EdgeInsets.fromLTRB(15.0, 10.0, 5.0, 10.0),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Color(0xffd7d9da)),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Color(0xffd7d9da)),
+                                ),
                               ),
+                              onEditingComplete: () {},
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     const SizedBox(
                       height: 50,
                     ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xffE3B449),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 60, vertical: 20),
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
-                          )),
-                      onPressed: () async {
-                        Navigator.of(context).push(FullScreenModal());
-                        tempId = uniqueIdcontroller.text;
-                        uniqueId = tempId;
-                        if (tempId.isEmpty) {
-                          await AlertDialogs.yesCanceldialog(
-                              context, 'PAN is empty');
-                        } else {
-                          var encrep = await _fetchNames.fetchName(
-                            uniqueId,
-                            context,
-                          );
-                          Name =
-                              await _decryptName.decryptName(encrep!, context);
-                          if (Name!.contains('PAN is invalid') ||
-                              Name!.contains('ARN is Invalid')) {
-                            await FeedbackAlerts.yesCanceldialog(
-                                context, 'Please Enter Valid PAN Details.');
-                            uniqueIdcontroller.clear();
-                            setState(() {
-                              uniqueId = '';
-                              Name = '';
-                            });
-                          } else if (Name!.contains('Technical Error.')) {
-                            await AlertDialogs.yesCanceldialog(context,
-                                'Technical Error. Please contact your Admin!');
-                            uniqueIdcontroller.clear();
-                            setState(() {
-                              uniqueId = '';
-                              Name = '';
-                            });
-                          } else if (Name!
-                              .contains('No folio associated to this PAN')) {
-                            await AlertDialogs.yesCanceldialog(context, Name!);
-                            uniqueIdcontroller.clear();
-                            setState(() {
-                              uniqueId = '';
-                              Name = '';
-                            });
+                    Align(
+                      alignment: Alignment.center,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xffE3B449),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 60, vertical: 20),
+                            shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30)),
+                            )),
+                        onPressed: () async {
+                          tempId = uniqueIdcontroller.text;
+                          uniqueId = tempId;
+                          if ((regExp.hasMatch(tempId)) &&
+                              tempId.length == 10) {
+                            final stopwatch = Stopwatch()..start();
+                            Navigator.of(context).push(FullScreenModal());
+                            var encrep = await _fetchNames.fetchName(
+                              uniqueId,
+                              context,
+                            );
+                            print('Encryption took ${stopwatch.elapsed}');
+                            Name = await _decryptName.decryptName(
+                                encrep!, context);
+                            print('Decryption took ${stopwatch.elapsed}');
+                            if (Name!
+                                .contains('No folio associated to this PAN')) {
+                              await AlertDialogs.yesCanceldialog(
+                                  context, Name!);
+                              uniqueIdcontroller.clear();
+                              setState(() {
+                                uniqueId = '';
+                                Name = '';
+                              });
+                            } else {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => RadioComment(
+                                          ExtractedName: Name,
+                                          ExtractedUniqueId: uniqueId)));
+                            }
                           } else {
-                            print('Name is :- $Name');
-                            print('Unique ID is :- $uniqueId');
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => RadioComment(
-                                        ExtractedName: Name,
-                                        ExtractedUniqueId: uniqueId)));
+                            AlertDialogs.yesCanceldialog(
+                                context, 'Please enter valid PAN details');
+                            uniqueIdcontroller.clear();
+                            setState(() {
+                              uniqueId = '';
+                              Name = '';
+                            });
                           }
-                        }
-                      },
-                      child: const Text(
-                        'SUBMIT',
-                        style: TextStyle(
-                          fontFamily: 'Arial Narrow',
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff002247),
+                        },
+                        child: const Text(
+                          'SUBMIT',
+                          style: TextStyle(
+                            fontFamily: 'Arial Narrow',
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff002247),
+                          ),
                         ),
                       ),
                     ),

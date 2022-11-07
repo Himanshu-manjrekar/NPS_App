@@ -26,38 +26,40 @@ class Radiorating<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     final currentWidth = MediaQuery.of(context).size.width;
     final bool isSelected = value == groupValue;
-    return InkWell(
-      splashFactory: NoSplash.splashFactory,
-      onTap: () => {
-        onChanged(value),
-        callbackFunction(int.parse(value)),
-      },
-      child: Column(
-        children: [
-          Text(
-            value.toString(),
-            style: const TextStyle(
-              color: Color(0xff002247),
-            ),
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          Container(
-            width: currentWidth > 1024
-                ? 8.6.w
-                : 8.w, // Resize this for responsive behaviour
-            height: 22, // this is the size of the btn
-            decoration: ShapeDecoration(
-              shape: CircleBorder(
-                side: BorderSide(
-                  color: isSelected ? bgcolor : const Color(0xffd7d9da),
-                ),
+    return Expanded(
+      child: InkWell(
+        splashFactory: NoSplash.splashFactory,
+        onTap: () => {
+          onChanged(value),
+          callbackFunction(int.parse(value)),
+        },
+        child: Column(
+          children: [
+            Text(
+              value.toString(),
+              style: const TextStyle(
+                color: Color(0xff002247),
               ),
-              color: isSelected ? bgcolor : Colors.white,
             ),
-          ),
-        ],
+            const SizedBox(
+              height: 8,
+            ),
+            Container(
+              width: currentWidth > 1024
+                  ? 8.6.w
+                  : 8.w, // Resize this for responsive behaviour
+              height: 22, // this is the size of the btn
+              decoration: ShapeDecoration(
+                shape: CircleBorder(
+                  side: BorderSide(
+                    color: isSelected ? bgcolor : const Color(0xffd7d9da),
+                  ),
+                ),
+                color: isSelected ? bgcolor : Colors.white,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

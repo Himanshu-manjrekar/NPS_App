@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 enum DialogsAction { yes, cancel }
 
-class FeedbackAlerts {
+class TechnicalAlertDialogs {
   static Future<DialogsAction?> yesCanceldialog(
     BuildContext context,
     String body,
@@ -10,7 +11,7 @@ class FeedbackAlerts {
     final action = await showDialog(
         context: context,
         // barrierDismissible: false,
-        builder: (BuildContext feedbckalertctx) {
+        builder: (BuildContext dailogctx) {
           return AlertDialog(
             content: Text(
               body,
@@ -20,8 +21,7 @@ class FeedbackAlerts {
             ),
             actions: <Widget>[
               TextButton(
-                onPressed: () =>
-                    Navigator.of(feedbckalertctx).pop(DialogsAction.yes),
+                onPressed: () => Phoenix.rebirth(context),
                 child: const Text(
                   'Ok',
                   style: TextStyle(

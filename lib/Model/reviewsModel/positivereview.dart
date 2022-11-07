@@ -6,6 +6,7 @@ class PositiveReview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentWidth = MediaQuery.of(context).size.width;
     return Align(
       alignment: Alignment.topLeft,
       child: Text(
@@ -13,7 +14,7 @@ class PositiveReview extends StatelessWidget {
         'Thank you. What more can we do for you to give us 10?',
         style: TextStyle(
           fontFamily: 'Arial Narrow',
-          fontSize: 8.sp,
+          fontSize: currentWidth < 1024 ? 18 : 8.sp,
           color: const Color(0xff002247),
         ),
       ),

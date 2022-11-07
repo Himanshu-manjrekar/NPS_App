@@ -1,18 +1,17 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:convert';
-import 'dart:io';
 import 'package:encrypt/encrypt.dart' as encrypt1;
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:nps_app/Controllers/Encryption Controllers/randomkeygenerator.dart';
 import '../../Model/alertModel/alert_dialog.dart';
+import '../API Controllers/config.properties' as config;
 
 class Decryptfeedback {
   DecryptFeedback(String req, BuildContext context) async {
     try {
       final encryptedRandomKey = encrypt1.Key.fromUtf8(digitKey);
-      final iv = encrypt1.IV.fromUtf8('0123456789ABCDEF');
+      final iv = encrypt1.IV.fromUtf8(config.iv);
       final encrypter = encrypt1.Encrypter(
           encrypt1.AES(encryptedRandomKey, mode: encrypt1.AESMode.cbc));
       final decrypted = req;

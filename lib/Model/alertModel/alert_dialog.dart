@@ -21,12 +21,7 @@ class AlertDialogs {
             ),
             actions: <Widget>[
               TextButton(
-                onPressed: () =>
-                    //
-                    // Navigator.of(dailogctx).pop(DialogsAction.yes),
-                    // Navigator.pushNamed(dailogctx, '/intro'),
-                    Phoenix.rebirth(context),
-                // Navigator.pop(dailogctx),
+                onPressed: () => Navigator.of(dailogctx).pop(DialogsAction.yes),
                 child: const Text(
                   'Ok',
                   style: TextStyle(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nps_app/View/radiocomment.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:sizer/sizer.dart';
 import 'View/intro.dart';
@@ -23,9 +22,8 @@ class MyApp extends StatelessWidget {
           highlightColor: Colors.transparent,
           hoverColor: Colors.transparent,
         ),
-        title: 'NPS',
-        home: const RadioComment(
-            ExtractedName: "hello", ExtractedUniqueId: "123456"),
+        title: 'NPS_UAT',
+        home: IntroPage(),
         debugShowCheckedModeBanner: false,
         routes: {'/intro': (context) => IntroPage()},
       );

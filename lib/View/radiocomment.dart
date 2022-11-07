@@ -111,8 +111,8 @@ class _RadioCommentState<T> extends State<RadioComment<T>> {
                       children: <Widget>[
                         Text(
                           // '${widget.ExtractedUniqueId}',
-                          currentWidth.toString(),
-                          // 'Name',
+                          // currentWidth.toString(),
+                          'Name',
                           style: TextStyle(
                             fontSize: currentWidth < 1024 ? 16 : 6.sp,
                             color: const Color(0xff002247),
@@ -163,7 +163,9 @@ class _RadioCommentState<T> extends State<RadioComment<T>> {
                       child: Text(
                         "Can we have your feedback on your experience?",
                         style: TextStyle(
-                          fontSize: 8.sp, // Resize Accordingly
+                          fontSize: currentWidth < 1024
+                              ? 18
+                              : 8.sp, // Resize Accordingly
                           color: const Color(0xff002247),
                           fontFamily: 'Arial Narrow',
                         ),
@@ -316,12 +318,17 @@ class _RadioCommentState<T> extends State<RadioComment<T>> {
                                 Column(
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 15), // Resize this responsive
+                                      padding: EdgeInsets.only(
+                                          left: currentWidth < 1024
+                                              ? 4.w
+                                              : 4.5
+                                                  .w), // Resize this responsive
                                       child: SizedBox(
                                         child: Container(
                                           height: 8,
-                                          width: 187,
+                                          width: currentWidth < 1024
+                                              ? 50.w
+                                              : 52.5.w,
                                           decoration: const BoxDecoration(
                                               border: Border(
                                             bottom: BorderSide(
@@ -340,12 +347,14 @@ class _RadioCommentState<T> extends State<RadioComment<T>> {
                                   ],
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 30), // Resize this responsive
+                                  padding: EdgeInsets.only(
+                                      left: currentWidth < 1024
+                                          ? 7.5.w
+                                          : 8.8.w), // Resize this responsive
                                   child: SizedBox(
                                     child: Container(
                                       height: 8,
-                                      width: 34,
+                                      width: currentWidth < 1024 ? 9.w : 8.8.w,
                                       decoration: const BoxDecoration(
                                           border: Border(
                                         bottom: BorderSide(
@@ -362,12 +371,14 @@ class _RadioCommentState<T> extends State<RadioComment<T>> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 30), // Resize this responsive
+                                  padding: EdgeInsets.only(
+                                      left: currentWidth < 1024
+                                          ? 8.w
+                                          : 8.6.w), // Resize this responsive
                                   child: SizedBox(
                                     child: Container(
                                       height: 8,
-                                      width: 34,
+                                      width: currentWidth < 1024 ? 8.w : 8.7.w,
                                       decoration: const BoxDecoration(
                                           border: Border(
                                         bottom: BorderSide(
@@ -396,36 +407,44 @@ class _RadioCommentState<T> extends State<RadioComment<T>> {
                                 Column(
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 50), // Resize this responsive
+                                      padding: EdgeInsets.only(
+                                          left: currentWidth < 1024
+                                              ? 20.w
+                                              : 26.5
+                                                  .w), // Resize this responsive
                                       child: Text('Needs improvement',
                                           style: TextStyle(
                                             fontFamily: 'Arial Narrow',
                                             color:
                                                 Colors.black.withOpacity(0.3),
-                                            fontSize: 12,
+                                            fontSize:
+                                                currentWidth < 1024 ? 12 : 14,
                                           )),
                                     ),
                                   ],
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 95), // Resize this responsive
+                                  padding: EdgeInsets.only(
+                                      left: currentWidth < 1024
+                                          ? 25.w
+                                          : 34.5.w), // Resize this responsive
                                   child: Text('Happy',
                                       style: TextStyle(
                                         fontFamily: 'Arial Narrow',
                                         color: Colors.black.withOpacity(0.3),
-                                        fontSize: 12,
+                                        fontSize: currentWidth < 1024 ? 12 : 14,
                                       )),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 30), // Resize this responsive
+                                  padding: EdgeInsets.only(
+                                      left: currentWidth < 1024
+                                          ? 10.w
+                                          : 15.w), // Resize this responsive
                                   child: Text('Delighted',
                                       style: TextStyle(
                                         fontFamily: 'Arial Narrow',
                                         color: Colors.black.withOpacity(0.3),
-                                        fontSize: 12,
+                                        fontSize: currentWidth < 1024 ? 12 : 14,
                                       )),
                                 ),
                               ],
@@ -489,25 +508,25 @@ class _RadioCommentState<T> extends State<RadioComment<T>> {
 
                     int temp_rating = _rate!;
                     if (temp_rating < 0) {
-                      await FeedbackAlerts.yesCanceldialog(
-                          context, 'Please give rating.');
+                      await FeedbackAlerts.yesCanceldialog(context,
+                          'Can we have your feedback on your experience?');
                     } else if (comment.isEmpty) {
                       await FeedbackAlerts.yesCanceldialog(
-                          context, 'Please write few suggestions.');
+                          context, 'Please enter suggestion.');
                     } else {
                       Navigator.of(context).push(FullScreenModal());
                       var savedfeedback = await _saveFeedback.saveFeedback(
-                          widget.ExtractedUniqueId,
-                          _rate,
-                          comment,
-                          source,
-                          context,
-                          'https://investors-stage.pgimindiamf.com/api/v1/general/customer/feedback');
+                        widget.ExtractedUniqueId,
+                        _rate,
+                        comment,
+                        source,
+                        context,
+                      );
                       feedback = await _decryptfeedback.DecryptFeedback(
                           savedfeedback, context);
-                      print(widget.ExtractedUniqueId);
-                      print(_rate);
-                      print(comment);
+                      // print(widget.ExtractedUniqueId);
+                      // print(_rate);
+                      // print(comment);
                       // setState(() => comment = '');
                       // setState(() => tempId = '');
                       // setState(() => fetchednamed = '');

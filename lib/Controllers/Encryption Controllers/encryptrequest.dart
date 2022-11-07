@@ -1,5 +1,5 @@
 // ignore_for_file: non_constant_identifier_names, duplicate_ignore
-
+import '../API Controllers/config.properties' as config;
 import 'package:encrypt/encrypt.dart' as encrypt1;
 import 'package:flutter/services.dart';
 import 'package:nps_app/Controllers/Encryption Controllers/randomkeygenerator.dart';
@@ -17,18 +17,20 @@ class EncryptRequest {
     final encrypter = encrypt1.Encrypter(encrypt1.RSA(
       publicKey: publicKey,
     ));
-    final encryptedRandomKey =
-        encrypter.encrypt(plainText); // Encrypt Random 16 Digit Key Here
+    final encryptedRandomKey = encrypter.encrypt(plainText);
+    // print(
+    //     'Encrypted Key :- ${encryptedRandomKey.base64}'); // Encrypt Random 16 Digit Key Here
     return encryptedRandomKey.base64; // Return it
   }
 
   Future<String> EncryptPayload(String payload) async {
     final Payload = payload; // payload
     final EncryptedRandomKey = encrypt1.Key.fromUtf8(digitKey);
-    final iv = encrypt1.IV.fromUtf8('0123456789ABCDEF');
+    final iv = encrypt1.IV.fromUtf8(config.iv);
     final encrypter = encrypt1.Encrypter(
         encrypt1.AES(EncryptedRandomKey, mode: encrypt1.AESMode.cbc));
     final encrypted = encrypter.encrypt(Payload, iv: iv);
+    // print('Encrypted Payload :- ${encrypted.base64}');
     return encrypted.base64;
   }
 }

@@ -6,8 +6,9 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import '../../Model/alertModel/alert_dialog.dart';
+import 'package:nps_app/Model/alertModel/technicalerror_dailog.dart';
 import 'package:nps_app/Controllers/Encryption Controllers/encryptrequest.dart';
+import '../API Controllers/config.properties' as config;
 
 class FetchNames {
   late int status = 0;
@@ -15,14 +16,15 @@ class FetchNames {
   late var decryptedResponse = '';
 
   Future<String?> fetchName(String uniqueId, BuildContext context) async {
-    const baseurl =
-        'https://investors-stage.pgimindiamf.com/api/v1/nontransaction/getName';
+    var baseurl = config.baseurl;
+    var endpoint = config.getNameEndpoint;
+    var url = baseurl + endpoint;
     final payload = '{"userId":"$uniqueId"}';
     final encryptedPayload = await _encryptRequest.EncryptPayload(payload);
     final encryptedDigitKey = await _encryptRequest.EncryptRandomKey();
     try {
       final response = await post(
-        Uri.parse(baseurl),
+        Uri.parse(url),
         headers: {
           "EncryptionKey": encryptedDigitKey,
           "checkEnc": "true",
@@ -38,20 +40,20 @@ class FetchNames {
         decryptedResponse = encryptedResponse["edata"];
         Navigator.of(context).pop();
       } else {
+        print(response.statusCode);
         Navigator.of(context).pop();
-        await AlertDialogs.yesCanceldialog(
+        await TechnicalAlertDialogs.yesCanceldialog(
             context, 'Technical Error. Please contact your Admin!');
       }
     } on SocketException catch (e) {
-      // Navigator.of(context).pop();
-      Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false);
-      await AlertDialogs.yesCanceldialog(
+      Navigator.of(context).pop();
+      await TechnicalAlertDialogs.yesCanceldialog(
           context, 'Please check your internet connection and try again.');
     } on Exception catch (e) {
       print(e);
       Navigator.of(context).pop();
-      await AlertDialogs.yesCanceldialog(
-          context, 'Technical Error. Please contact your Admin!');
+      await TechnicalAlertDialogs.yesCanceldialog(
+          context, 'API Called  time still ${e} raised');
     }
     return decryptedResponse;
   }

@@ -3,13 +3,14 @@ import 'package:encrypt/encrypt.dart' as encrypt1;
 import 'package:flutter/cupertino.dart';
 import 'package:nps_app/Controllers/Encryption Controllers/randomkeygenerator.dart';
 import '../../Model/alertModel/alert_dialog.dart';
+import '../API Controllers/config.properties' as config;
 
 class DecryptName {
   late String decryptedname = '';
   Future<String> decryptName(String resp, BuildContext context) async {
     try {
       final encryptedRandomKey = encrypt1.Key.fromUtf8(digitKey);
-      final iv = encrypt1.IV.fromUtf8('0123456789ABCDEF');
+      final iv = encrypt1.IV.fromUtf8(config.iv);
       final encrypter = encrypt1.Encrypter(
           encrypt1.AES(encryptedRandomKey, mode: encrypt1.AESMode.cbc));
       final decryptedRequest = resp;
@@ -31,8 +32,6 @@ class DecryptName {
       await AlertDialogs.yesCanceldialog(
           context, 'Technical error. Please contact your Admin!');
     } on RangeError catch (e) {
-      // await AlertDialogs.yesCanceldialog(
-      //     context, 'Technical error. Please contact your Administrator!');
       Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false);
     }
     return decryptedname;
